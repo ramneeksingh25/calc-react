@@ -15,8 +15,12 @@ function Controls({exp,inputF,out,expression}) {
                 break;
             
             case "=":
-                const result = eval(expression);
-                inputF(result.toFixed(5).replace(/0+$/, ""));
+                let result = eval(expression);
+                if (!Number.isInteger(result)){
+                    result=result.toFixed(5).replace(/0+$/, "")
+                }
+                console.log(result);
+                inputF(result);
                 break;
             
             case "%":

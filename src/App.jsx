@@ -1,13 +1,26 @@
+import { useEffect, useState } from "react"
 import Background from "./components/Background"
 import Calc from "./components/Calc"
-import { useRef } from "react"
+import { ThemeProvider } from "./contexts/theme"
 function App() {
-  const ref=useRef(null);
+  const [themeMode,setThemeMode]=useState('light');
+  const darkTheme = ()=>{
+    setThemeMode('dark');
+  }
+  const lightTheme = ()=>{
+    setThemeMode('light');
+  }
+  useEffect(()=>{
+    document.querySelector('html').classList.remove('dark','light')
+    document.querySelector('html').classList.add(themeMode)
+  },[themeMode])
   return (
-    <div className="h-screen w-full bg-zinc-900" ref={ref}>
-      <Background reference={ref} />
+    <ThemeProvider value={{themeMode,darkTheme,lightTheme}}>
+    <div className="h-screen w-full bg-zinc-900">
+      <Background />
       <Calc/>
     </div>
+    </ThemeProvider>
   )
 }
 
